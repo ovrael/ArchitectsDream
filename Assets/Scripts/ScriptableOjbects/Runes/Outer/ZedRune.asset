@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524fca95564ff684ba2d11c8f3d3eb27, type: 3}
+  m_Name: ZedRune
+  m_EditorClassIdentifier: 
+  runeName: Zed
+  description: 
+  targetLocation: Mines
+  sprite: {fileID: 4307643635358162382, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}

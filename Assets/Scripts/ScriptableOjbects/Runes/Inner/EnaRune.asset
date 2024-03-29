@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d9d9fb1c2a3964d9eddae91a6fc041, type: 3}
+  m_Name: EnaRune
+  m_EditorClassIdentifier: 
+  runeName: Ena
+  description: 
+  modifications:
+  - Increased armor
+  sprite: {fileID: -8381018381221977557, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}
