@@ -1,13 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
-using AssemblyCSharp.Assets.Tools;
-
 using TMPro;
 
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class StargateMechanism : MonoBehaviour
 {
@@ -20,7 +13,11 @@ public class StargateMechanism : MonoBehaviour
     [SerializeField]
     TMP_Text targetText;
 
-    bool canInteract = false;
+    [SerializeField]
+    TMP_Text interactText;
+
+    bool userInRange = false;
+    bool userInteract = false;
     float yInput;
 
     private void Awake()
@@ -43,11 +40,39 @@ public class StargateMechanism : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (outerStargate.IsTurning || innerStargate.IsTurning)
+
+        if (!userInteract)
+        {
+            if (!userInRange)
+                return;
+
+            if (Input.GetButtonDown("Interact"))
+            {
+                UserInteraction(true);
+                return;
+            }
+        }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            UserInteraction(false);
+            return;
+        }
+
+        if (outerStargate.IsTurning || innerStargate.IsTurning || !userInteract)
             return;
 
         UpdateInput();
         HandleGateChange();
+    }
+
+    private void UserInteraction(bool state)
+    {
+        userInteract = state;
+        Time.timeScale = state ? 0f : 1f;
+        interactText.gameObject.SetActive(!state);
+        outerStargate.ChangeUserInteraction(state);
+        innerStargate.ChangeUserInteraction(state);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -55,18 +80,26 @@ public class StargateMechanism : MonoBehaviour
         if (collision == null || !collision.transform.parent.CompareTag("Player"))
             return;
 
-        canInteract = true;
+        userInRange = true;
+        interactText.gameObject.SetActive(true);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision == null || !collision.transform.parent.CompareTag("Player"))
             return;
 
-        canInteract = false;
+        userInRange = false;
+        interactText.gameObject.SetActive(false);
     }
     private void UpdateInput()
     {
-        yInput = Input.GetAxis("Vertical");
+        //yInput = Input.GetAxis("Vertical");
+        if (Input.GetButton("Up"))
+            yInput = 1f;
+        else if (Input.GetButton("Down"))
+            yInput = -1f;
+        else
+            yInput = 0f;
     }
     private void HandleGateChange()
     {
@@ -97,7 +130,6 @@ public class StargateMechanism : MonoBehaviour
         for (int i = 0; i < innerRuneData.Modifications.Length; i++)
         {
             targetText.text += $"\n* {innerRuneData.Modifications[i]}";
-            Debug.Log(innerRuneData.Modifications[i]);
         }
     }
 }

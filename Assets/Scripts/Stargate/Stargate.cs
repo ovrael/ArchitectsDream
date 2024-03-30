@@ -1,12 +1,8 @@
-﻿using System;
+﻿using AssemblyCSharp.Assets.Scripts.Stargate;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-
-using AssemblyCSharp.Assets.EditorUtils;
-using AssemblyCSharp.Assets.Scripts.Stargate;
-
 using UnityEngine;
-using UnityEngine.U2D;
 
 public class Stargate : MonoBehaviour
 {
@@ -34,6 +30,7 @@ public class Stargate : MonoBehaviour
 
     bool isTurning = false;
     bool isActive = false;
+    bool userInteract = false;
     SpriteRenderer sprite;
 
     float xInput = 0;
@@ -52,12 +49,21 @@ public class Stargate : MonoBehaviour
 
     private void Update()
     {
-        if (isTurning || !isActive)
+        if (isTurning || !isActive || !userInteract)
             return;
 
-        xInput = Input.GetAxis("Horizontal");
+        UpdateInput();
         HandleGateRotation();
+    }
 
+    private void UpdateInput()
+    {
+        if (Input.GetButton("Left"))
+            xInput = -1f;
+        else if (Input.GetButton("Right"))
+            xInput = 1f;
+        else
+            xInput = 0f;
     }
 
     private void HandleGateRotation()
@@ -79,6 +85,11 @@ public class Stargate : MonoBehaviour
     {
         isActive = false;
         sprite.color = inactiveColor;
+    }
+
+    public void ChangeUserInteraction(bool state)
+    {
+        userInteract = state;
     }
 
     private void CreateRunes()
@@ -134,16 +145,19 @@ public class Stargate : MonoBehaviour
         int indexChange = xInput > 0 ? 1 : runes.Count - 1;
 
         // Wait for gate to rotate
-        yield return new WaitForSeconds(rotateDuration);
+        yield return new WaitForSecondsRealtime(rotateDuration * 0.9f);
+
+        // Deactivate old rune for sure
+        for (int i = 0; i < runes.Count; i++)
+        {
+            runes[oldIndex].transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 1f);
+        }
 
         // Active new rune
         activeRuneIndex = (activeRuneIndex + indexChange) % runes.Count;
         activeRune = runes[activeRuneIndex];
         activeRune.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.2f, 1f, 0.2f);
 
-        // Deactivate old rune for sure
-        activeRune = runes[oldIndex];
-        activeRune.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 1f);
 
         updateStargateText.Invoke();
     }
@@ -163,7 +177,8 @@ public class Stargate : MonoBehaviour
         {
             // Interpolation
             transform.rotation = Quaternion.Lerp(startRotation, targetRotation, EaseInOut(elapsedTime / rotateDuration));
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
+            //elapsedTime += Time.deltaTime;
             // Next frame
             yield return null;
         }
