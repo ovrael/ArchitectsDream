@@ -1,6 +1,8 @@
+using AssemblyCSharp.Assets.Scripts.Stargate;
 using TMPro;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StargateMechanism : MonoBehaviour
 {
@@ -53,14 +55,22 @@ public class StargateMechanism : MonoBehaviour
             }
         }
 
+        if (outerStargate.IsTurning || innerStargate.IsTurning || !userInteract)
+            return;
+
         if (Input.GetButtonDown("Cancel"))
         {
             UserInteraction(false);
             return;
         }
 
-        if (outerStargate.IsTurning || innerStargate.IsTurning || !userInteract)
-            return;
+        if (Input.GetButtonDown("Submit"))
+        {
+            RuneData activeOuterRune = outerStargate.GetActiveRuneData();
+            string targetPlanet = (activeOuterRune as OuterRuneData).TargetLocation;
+            SceneManager.LoadScene(targetPlanet);
+        }
+
 
         UpdateInput();
         HandleGateChange();

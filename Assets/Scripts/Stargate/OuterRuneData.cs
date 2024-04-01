@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
 using AssemblyCSharp.Assets.Scripts.Stargate;
-
+using System;
 using UnityEngine;
 
 
@@ -20,6 +16,10 @@ public class OuterRuneData : RuneData
     public string Description { get { return description; } }
 
     [SerializeField]
-    private string targetLocation;
-    public string TargetLocation { get { return targetLocation; } }
+    private string targetPlanet;
+    public string TargetLocation { get { return targetPlanet; } }
+
+    [SerializeField]
+    private string location;
+    public string Location { get { return location; } }
 }
