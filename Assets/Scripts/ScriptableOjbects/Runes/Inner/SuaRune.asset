@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d9d9fb1c2a3964d9eddae91a6fc041, type: 3}
   m_Name: SuaRune
   m_EditorClassIdentifier: 
+  sprite: {fileID: 3683109808092583782, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}
   runeName: Sua
-  description: 
+  description: Fires everywhere
+  environmentalPrefab: {fileID: 8060379924035102067, guid: 491056b527a6bcd44bb41997ed048db4, type: 3}
   modifications:
   - Increased elemental damage
-  sprite: {fileID: 3683109808092583782, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}

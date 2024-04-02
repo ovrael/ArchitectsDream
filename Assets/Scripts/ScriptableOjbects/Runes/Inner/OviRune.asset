@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d9d9fb1c2a3964d9eddae91a6fc041, type: 3}
   m_Name: OviRune
   m_EditorClassIdentifier: 
-  runeName: Ovi
-  description: 
-  modifications:
-  - Sunny weather
-  - Increased chance to miss
   sprite: {fileID: 6278963131533553092, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}
+  runeName: Ovi
+  description: Sunny
+  environmentalPrefab: {fileID: 4284597564363231380, guid: 5cc77b621214a464ebf65043b910b6ac, type: 3}
+  modifications:
+  - Increased chance to miss

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d9d9fb1c2a3964d9eddae91a6fc041, type: 3}
   m_Name: DofRune
   m_EditorClassIdentifier: 
+  sprite: {fileID: 7363201583775701000, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}
   runeName: Dof
-  description: 
+  description: Windy
+  environmentalPrefab: {fileID: 7565833899495725527, guid: 119e1e2a28c206e4aa90f34a6bc5ac1c, type: 3}
   modifications:
   - Increased attack speed
-  sprite: {fileID: 7363201583775701000, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}

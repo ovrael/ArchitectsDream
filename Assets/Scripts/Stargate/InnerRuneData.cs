@@ -20,6 +20,10 @@ public class InnerRuneData : RuneData
     public string Description { get { return description; } }
 
     [SerializeField]
+    private GameObject environmentalPrefab;
+    public GameObject EnvironmentalPrefab { get { return environmentalPrefab; } }
+
+    [SerializeField]
     private string[] modifications;
     public string[] Modifications { get { return modifications; } }
 }

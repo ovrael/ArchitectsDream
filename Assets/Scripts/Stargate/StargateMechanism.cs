@@ -1,4 +1,5 @@
 using AssemblyCSharp.Assets.Scripts.Stargate;
+
 using TMPro;
 
 using UnityEngine;
@@ -66,9 +67,10 @@ public class StargateMechanism : MonoBehaviour
 
         if (Input.GetButtonDown("Submit"))
         {
-            RuneData activeOuterRune = outerStargate.GetActiveRuneData();
-            string targetPlanet = (activeOuterRune as OuterRuneData).TargetLocation;
-            SceneManager.LoadScene(targetPlanet);
+            OuterRuneData activeOuterRune = outerStargate.GetActiveRuneData<OuterRuneData>();
+            InnerRuneData activeInnerRune = innerStargate.GetActiveRuneData<InnerRuneData>();
+
+            GameManager.Instance.ChangeLevel(activeOuterRune, activeInnerRune);
         }
 
 

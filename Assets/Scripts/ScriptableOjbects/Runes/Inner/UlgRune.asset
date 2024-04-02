@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d9d9fb1c2a3964d9eddae91a6fc041, type: 3}
   m_Name: UlgRune
   m_EditorClassIdentifier: 
-  runeName: Ulg
-  description: 
-  modifications:
-  - Rainy weather
-  - Fire resistance increased
   sprite: {fileID: -4589748329062835639, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}
+  runeName: Ulg
+  description: Light rain
+  environmentalPrefab: {fileID: 3808910645063074003, guid: 6bced07dba5db5f43929bd1de72a2637, type: 3}
+  modifications:
+  - Fire resistance increased

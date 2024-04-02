@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d9d9fb1c2a3964d9eddae91a6fc041, type: 3}
   m_Name: SivRune
   m_EditorClassIdentifier: 
+  sprite: {fileID: 5415781217118684087, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}
   runeName: Siv
-  description: 
+  description: Rainy
+  environmentalPrefab: {fileID: 2467801792315597273, guid: 40522baa6132bd44a8d10ef9ffca269d, type: 3}
   modifications:
-  - Stormy Weather
   - Player and Monsters are wet
   - Player and Monsters fire resistance is increased
-  sprite: {fileID: 5415781217118684087, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}

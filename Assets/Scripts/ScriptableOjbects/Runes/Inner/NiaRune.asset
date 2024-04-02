@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d9d9fb1c2a3964d9eddae91a6fc041, type: 3}
   m_Name: NiaRune
   m_EditorClassIdentifier: 
+  sprite: {fileID: 2545281364566810067, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}
   runeName: Nia
   description: Virus
+  environmentalPrefab: {fileID: 7113324411766765155, guid: cb5386f2d4d068544986c928b1c6e100, type: 3}
   modifications:
-  - Virus is in the air
   - Everyone takes poison damage every second
-  sprite: {fileID: 2545281364566810067, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}

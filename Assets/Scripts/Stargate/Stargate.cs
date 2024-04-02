@@ -1,7 +1,9 @@
 ﻿using AssemblyCSharp.Assets.Scripts.Stargate;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Stargate : MonoBehaviour
@@ -127,6 +129,11 @@ public class Stargate : MonoBehaviour
     public RuneData GetActiveRuneData()
     {
         return runesData[usedRunes[activeRuneIndex]];
+    }
+
+    public T GetActiveRuneData<T>() where T : RuneData
+    {
+        return runesData[usedRunes[activeRuneIndex]] as T;
     }
 
     float EaseInOut(float t)
