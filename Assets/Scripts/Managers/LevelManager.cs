@@ -60,7 +60,7 @@ public class LevelManager : MonoBehaviour
     {
         GameObject spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
         GameObject playerInstance = Instantiate(playerPrefab);
-        playerInstance.transform.position = spawnPoint.transform.position;
+        playerInstance.transform.position = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, -8.0f);
 
         GameObject cameraInstance = GameObject.FindGameObjectWithTag("MainCamera");
         cameraInstance.GetComponent<CameraFollowsPlayer>().Init();

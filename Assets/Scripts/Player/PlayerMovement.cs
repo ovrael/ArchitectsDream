@@ -18,17 +18,19 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField, Range(0f, 1f)]
     float velocityDecay = 0.9f;
-    bool onGround = true;
 
     // Jump
     bool jump = false;
     bool jumpHeld = false;
     [Range(0, 5f)][SerializeField] private float fallLongMult = 0.85f;
     [Range(0, 5f)][SerializeField] private float fallShortMult = 1.55f;
+    bool onGround = true;
+    public bool OnGround { get { return onGround; } }
 
     // Input
     float inputDeadzone = 0.1f;
     float xInput = 0f;
+    public float XInput { get { return xInput; } }
 
     // Unity components
     Transform mainTransform;
@@ -120,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateSpriteDirection()
     {
         float direction = Mathf.Sign(xInput);
-        mainTransform.localScale = new Vector3(direction, 1, 1);
+        mainTransform.localScale = new Vector3(-direction, 1, 1);
     }
 
     private void ApplyFriction()

@@ -1530,7 +1530,7 @@ Transform:
   m_GameObject: {fileID: 1330632357}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21533,7 +21533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4958357112347412603, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 4958357112347412603, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21566,18 +21566,6 @@ PrefabInstance:
     - target: {fileID: 7723603956752651252, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8637994772822511577, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
-      propertyPath: m_Size.x
-      value: 0.2392027
-      objectReference: {fileID: 0}
-    - target: {fileID: 8637994772822511577, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 7ff70c7763c5d43428f983ee4620c3d8, type: 2}
-    - target: {fileID: 8637994772822511577, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
