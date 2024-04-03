@@ -1,22 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-
-using AssemblyCSharp.Assets.Scripts.Stargate;
-
-using Unity.Loading;
-
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
-
+[RequireComponent(typeof(LevelManager))]
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    Transform environmentalObject;
+    private LevelManager levelManager;
+    public LevelManager LevelManager { get { return levelManager; } }
 
-    [SerializeField]
-    GameObject playerPrefab = null;
+    private bool gameIsPaused = false;
 
     #region Singletone
     private static GameManager instance;
@@ -27,7 +18,6 @@ public class GameManager : MonoBehaviour
             if (instance == null)
             {
                 Debug.LogError("Game manager is null!");
-                //instance = new GameManager();
             }
             return instance;
         }
@@ -35,55 +25,53 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance)
-            Destroy(gameObject);
-        else
-            instance = this;
+        CreateSingleton();
+        GetManagers();
+    }
 
-        DontDestroyOnLoad(this);
+    private void CreateSingleton()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    private void GetManagers()
     {
-        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        levelManager = GetComponent<LevelManager>();
+    }
+
+    // Start is called before the first frame update
+    private void Start()
+    {
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
     }
 
-    public void ChangeLevel(OuterRuneData outerRune, InnerRuneData innerRune)
+    public void PauseGame()
     {
-        Scene nextScene = SceneManager.GetSceneByName($"{outerRune.TargetLocation}");
-        if (nextScene == null)
-        {
-            Debug.LogError($"Cannot load next level, {nextScene.name} scene does not exist!");
-            return;
-        }
-
-        SceneManager.LoadScene($"{outerRune.TargetLocation}");
-
-        for (var i = environmentalObject.childCount - 1; i >= 0; i--)
-        {
-            Destroy(environmentalObject.GetChild(i).gameObject);
-        }
-        GameObject environmentalModification = Instantiate(innerRune.EnvironmentalPrefab, environmentalObject);
-        environmentalModification.SetActive(true);
+        gameIsPaused = true;
+        Time.timeScale = 0f;
     }
 
-    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    public void UnpauseGame()
     {
-        GameObject spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
-        GameObject playerInstance = Instantiate(playerPrefab);
-        playerInstance.transform.position = spawnPoint.transform.position;
+        gameIsPaused = false;
+        Time.timeScale = 1.0f;
+    }
 
-        GameObject cameraInstance = GameObject.FindGameObjectWithTag("MainCamera");
-        cameraInstance.GetComponent<CameraFollowsPlayer>().Init();
-
-        Time.timeScale = 1f;
+    public void TogglePause()
+    {
+        if (gameIsPaused)
+            UnpauseGame();
+        else
+            PauseGame();
     }
 }

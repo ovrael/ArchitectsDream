@@ -11,5 +11,32 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Planets/Angum.unity
     guid: 4772484d48ac0a24d841874179a2773f
+  - enabled: 1
+    path: Assets/Scenes/Planets/Aomic.unity
+    guid: b972e52d4f9eb3342987d29ea2a7716a
+  - enabled: 1
+    path: Assets/Scenes/Planets/Bovial.unity
+    guid: 25f18aaba15a494439e3ebc7dff9a9c2
+  - enabled: 1
+    path: Assets/Scenes/Planets/Chinchi.unity
+    guid: 5902df5bf0572604eaa0315abb3fa574
+  - enabled: 1
+    path: Assets/Scenes/Planets/Kirriam.unity
+    guid: aa2caa38bdcc88442836bc4a4562b17d
+  - enabled: 1
+    path: Assets/Scenes/Planets/Ozdim.unity
+    guid: f6bd0c01f28c23c41913e3a83e80ad8c
+  - enabled: 1
+    path: Assets/Scenes/Planets/Rognar.unity
+    guid: 8acee0d2f843dee4eb60eb37b423360f
+  - enabled: 1
+    path: Assets/Scenes/Planets/Sukkio.unity
+    guid: 98c7f9d69939e514c8c349cf4a0d37c5
+  - enabled: 1
+    path: Assets/Scenes/Planets/Uymion.unity
+    guid: 1927e9669a31b5d4abe541cba70d5673
+  - enabled: 1
+    path: Assets/Scenes/Planets/Zedalion.unity
+    guid: 910a7ad17820413429b9bf560c02c3b9
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

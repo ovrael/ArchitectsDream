@@ -1,27 +1,23 @@
-using AssemblyCSharp.Assets.Scripts.Stargate;
-
 using TMPro;
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class StargateMechanism : MonoBehaviour
 {
     [SerializeField]
-    Stargate outerStargate;
+    private Stargate outerStargate;
 
     [SerializeField]
-    Stargate innerStargate;
+    private Stargate innerStargate;
 
     [SerializeField]
-    TMP_Text targetText;
+    private TMP_Text targetText;
 
     [SerializeField]
-    TMP_Text interactText;
-
-    bool userInRange = false;
-    bool userInteract = false;
-    float yInput;
+    private TMP_Text interactText;
+    private bool userInRange = false;
+    private bool userInteract = false;
+    private float yInput;
 
     private void Awake()
     {
@@ -36,12 +32,12 @@ public class StargateMechanism : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 
         if (!userInteract)
@@ -70,7 +66,7 @@ public class StargateMechanism : MonoBehaviour
             OuterRuneData activeOuterRune = outerStargate.GetActiveRuneData<OuterRuneData>();
             InnerRuneData activeInnerRune = innerStargate.GetActiveRuneData<InnerRuneData>();
 
-            GameManager.Instance.ChangeLevel(activeOuterRune, activeInnerRune);
+            GameManager.Instance.LevelManager.ChangeLevel(activeOuterRune, activeInnerRune);
         }
 
 
@@ -81,10 +77,14 @@ public class StargateMechanism : MonoBehaviour
     private void UserInteraction(bool state)
     {
         userInteract = state;
-        Time.timeScale = state ? 0f : 1f;
         interactText.gameObject.SetActive(!state);
         outerStargate.ChangeUserInteraction(state);
         innerStargate.ChangeUserInteraction(state);
+
+        if (state)
+            GameManager.Instance.PauseGame();
+        else
+            GameManager.Instance.UnpauseGame();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

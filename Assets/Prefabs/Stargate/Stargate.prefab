@@ -211,7 +211,7 @@ MonoBehaviour:
   runesParent: {fileID: 8412408153965005562}
   runeSpawnPoint: {fileID: 1467613728980690548}
   minRunes: 7
-  maxRunes: 7
+  maxRunes: 10
   runesData:
   - {fileID: 11400000, guid: 84d91d11764eed34e9e06c0b4075cdf1, type: 2}
   - {fileID: 11400000, guid: 2fa6aeae0e8df2749b685e9f1dffa179, type: 2}
@@ -360,8 +360,8 @@ MonoBehaviour:
   runePrefab: {fileID: 7439842472818146697, guid: e19dd076c30157d4d82311a9a4b46ad4, type: 3}
   runesParent: {fileID: 2239492603865736392}
   runeSpawnPoint: {fileID: 7145619734807631285}
-  minRunes: 7
-  maxRunes: 7
+  minRunes: 4
+  maxRunes: 10
   runesData:
   - {fileID: 11400000, guid: ae69ba2fda3e26148a4df829912deaa6, type: 2}
   - {fileID: 11400000, guid: b084933d7ee917b4e83c91636abd8b2d, type: 2}
