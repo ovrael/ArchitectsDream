@@ -331,10 +331,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stargate
       objectReference: {fileID: 0}
-    - target: {fileID: 6712634249157840701, guid: 15b5713cedcb9f241bdc0f94473e024a, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 157670896}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

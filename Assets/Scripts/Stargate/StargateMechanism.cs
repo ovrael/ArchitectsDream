@@ -11,7 +11,13 @@ public class StargateMechanism : MonoBehaviour
     private Stargate innerStargate;
 
     [SerializeField]
-    private TMP_Text targetText;
+    private TMP_Text dataText;
+
+    [SerializeField]
+    private TMP_Text outerRuneText;
+
+    [SerializeField]
+    private TMP_Text innerRuneText;
 
     [SerializeField]
     private TMP_Text interactText;
@@ -21,7 +27,6 @@ public class StargateMechanism : MonoBehaviour
 
     private void Awake()
     {
-
         outerStargate.updateStargateText = UpdateTargetText;
         innerStargate.updateStargateText = UpdateTargetText;
 
@@ -136,12 +141,13 @@ public class StargateMechanism : MonoBehaviour
         OuterRuneData outerRuneData = outerStargate.GetActiveRuneData() as OuterRuneData;
         InnerRuneData innerRuneData = innerStargate.GetActiveRuneData() as InnerRuneData;
 
-        targetText.text = $"Rune: {outerRuneData.RuneName} - {innerRuneData.RuneName}";
-        targetText.text += $"\nTarget location: {outerRuneData.TargetLocation}";
-        targetText.text += $"\nModifications:";
+        outerRuneText.text = outerRuneData.RuneName;
+        innerRuneText.text = innerRuneData.RuneName;
+        dataText.text = $"\nTarget location: {outerRuneData.TargetLocation}";
+        dataText.text += $"\nModifications:";
         for (int i = 0; i < innerRuneData.Modifications.Length; i++)
         {
-            targetText.text += $"\n* {innerRuneData.Modifications[i]}";
+            dataText.text += $"\n* {innerRuneData.Modifications[i]}";
         }
     }
 }
