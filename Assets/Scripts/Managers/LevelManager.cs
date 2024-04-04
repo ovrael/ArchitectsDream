@@ -66,6 +66,7 @@ public class LevelManager : MonoBehaviour
 
         GameObject environmentalModification = Instantiate(innerRune.EnvironmentalPrefab, environmentalObject);
         environmentalModification.SetActive(true);
+        //environmentalObject.transform.position = new Vector3(-80, 50, 0);
     }
 
     IEnumerator LoadYourAsyncScene(string sceneName)

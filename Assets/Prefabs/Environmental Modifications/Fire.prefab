@@ -4917,7 +4917,7 @@ Transform:
   m_GameObject: {fileID: 8060379924035102067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7, y: -0.7, z: 0}
+  m_LocalPosition: {x: 9, y: 30, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5495,7 +5495,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 1
-    maxNumParticles: 1000
+    maxNumParticles: 50000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -5563,7 +5563,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 100, y: 70, z: 1}
+    m_Scale: {x: 195, y: 70, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -5761,7 +5761,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 500
+      scalar: 1000
       minScalar: 10
       maxCurve:
         serializedVersion: 2

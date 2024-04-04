@@ -21,12 +21,17 @@ public class StargateMechanism : MonoBehaviour
 
     [SerializeField]
     private TMP_Text interactText;
+
     private bool userInRange = false;
     private bool userInteract = false;
     private float yInput;
 
     private void Awake()
     {
+        dataText.transform.parent.gameObject.SetActive(false);
+        outerRuneText.transform.parent.gameObject.SetActive(false);
+        innerRuneText.transform.parent.gameObject.SetActive(false);
+
         outerStargate.updateStargateText = UpdateTargetText;
         innerStargate.updateStargateText = UpdateTargetText;
 
@@ -85,6 +90,9 @@ public class StargateMechanism : MonoBehaviour
         interactText.gameObject.SetActive(!state);
         outerStargate.ChangeUserInteraction(state);
         innerStargate.ChangeUserInteraction(state);
+        dataText.transform.parent.gameObject.SetActive(state);
+        outerRuneText.transform.parent.gameObject.SetActive(state);
+        innerRuneText.transform.parent.gameObject.SetActive(state);
 
         if (state)
             GameManager.Instance.PauseGame();
@@ -144,6 +152,8 @@ public class StargateMechanism : MonoBehaviour
         outerRuneText.text = outerRuneData.RuneName;
         innerRuneText.text = innerRuneData.RuneName;
         dataText.text = $"\nTarget location: {outerRuneData.TargetLocation}";
+        if (innerRuneData.Description.Length > 0)
+            dataText.text += $"\nEnvironment: {innerRuneData.Description}";
         dataText.text += $"\nModifications:";
         for (int i = 0; i < innerRuneData.Modifications.Length; i++)
         {
