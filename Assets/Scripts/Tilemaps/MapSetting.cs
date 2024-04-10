@@ -30,7 +30,7 @@ public class MapSetting : ScriptableObject
     public int clearAmount;
     public int interval;
     public int minPathWidth, maxPathWidth, maxPathChange, roughness, windyness;
-    public bool edgesAreWalls;
+    public int wallsWidth;
     public float modifier;
 }
 
@@ -63,7 +63,7 @@ public class MapSettings_Editor : Editor
                 mapLayer.interval = EditorGUILayout.IntSlider("Interval Of Points", mapLayer.interval, 1, 10);
                 break;
             case Algorithm.PerlinCave:
-                mapLayer.edgesAreWalls = EditorGUILayout.Toggle("Edges Are Walls", mapLayer.edgesAreWalls);
+                mapLayer.wallsWidth = EditorGUILayout.IntSlider("Walls width", mapLayer.wallsWidth, 0, 10);
                 mapLayer.modifier = EditorGUILayout.Slider("Modifier", mapLayer.modifier, 0.0001f, 1.0f);
                 break;
             case Algorithm.RandomWalkTop:
@@ -79,12 +79,12 @@ public class MapSettings_Editor : Editor
                 mapLayer.clearAmount = EditorGUILayout.IntSlider("Amount To Clear", mapLayer.clearAmount, 0, 100);
                 break;
             case Algorithm.CellularAutomataVonNeuman:
-                mapLayer.edgesAreWalls = EditorGUILayout.Toggle("Edges Are Walls", mapLayer.edgesAreWalls);
+                mapLayer.wallsWidth = EditorGUILayout.IntSlider("Walls width", mapLayer.wallsWidth, 0, 10);
                 mapLayer.fillAmount = EditorGUILayout.IntSlider("Fill Percentage", mapLayer.fillAmount, 0, 100);
                 mapLayer.smoothAmount = EditorGUILayout.IntSlider("Smooth Amount", mapLayer.smoothAmount, 0, 10);
                 break;
             case Algorithm.CellularAutomataMoore:
-                mapLayer.edgesAreWalls = EditorGUILayout.Toggle("Edges Are Walls", mapLayer.edgesAreWalls);
+                mapLayer.wallsWidth = EditorGUILayout.IntSlider("Walls width", mapLayer.wallsWidth, 0, 10);
                 mapLayer.fillAmount = EditorGUILayout.IntSlider("Fill Percentage", mapLayer.fillAmount, 0, 100);
                 mapLayer.smoothAmount = EditorGUILayout.IntSlider("Smooth Amount", mapLayer.smoothAmount, 0, 10);
                 break;

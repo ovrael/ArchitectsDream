@@ -132,6 +132,31 @@ public class MapGenerator
             }
         }
     }
+    private static int[,] ApplyWalls(int[,] map, int wallsWidth)
+    {
+        if (wallsWidth == 0)
+            return map;
+
+        for (int x = 0; x < map.GetUpperBound(0); x++)
+        {
+            for (int y = 0; y <= wallsWidth; y++)
+            {
+                map[x, y] = 1;
+                map[x, map.GetUpperBound(1) - y] = 1;
+            }
+        }
+
+        for (int x = 0; x <= wallsWidth; x++)
+        {
+            for (int y = wallsWidth; y < map.GetUpperBound(1) - wallsWidth; y++)
+            {
+                map[x, y] = 1;
+                map[map.GetUpperBound(0) - x, y] = 1;
+            }
+        }
+
+        return map;
+    }
 
     /// <summary>
     /// Creates a perlin noise int array for the top layer of a level
@@ -235,30 +260,25 @@ public class MapGenerator
     /// <param name="modifier">the value we times the position by to get our perlin gen</param>
     /// <param name="edgesAreWalls">If set to <c>true</c> edges are walls.</param>
     /// <returns>The noise cave.</returns>
-    public static int[,] PerlinNoiseCave(int[,] map, float modifier, bool edgesAreWalls)
+    public static int[,] PerlinNoiseCave(int[,] map, float modifier, int wallsWidth)
     {
+        if (wallsWidth > map.GetUpperBound(0) || wallsWidth > map.GetUpperBound(1))
+            wallsWidth = 0;
+
         int newPoint;
         for (int x = 0; x < map.GetUpperBound(0); x++)
         {
             for (int y = 0; y < map.GetUpperBound(1); y++)
             {
-
-                if (edgesAreWalls && (x == 0 || y == 0 || x == map.GetUpperBound(0) - 1 || y == map.GetUpperBound(1) - 1))
-                {
-                    //Keep the edges as walls
-                    map[x, y] = 1;
-                }
-                else
-                {
-                    //Generate a new point using perlin noise, then round it to a value of either 0 or 1
-                    newPoint = Mathf.RoundToInt(Mathf.PerlinNoise(x * modifier, y * modifier));
-                    map[x, y] = newPoint;
-                }
+                //Generate a new point using perlin noise, then round it to a value of either 0 or 1
+                newPoint = Mathf.RoundToInt(Mathf.PerlinNoise(x * modifier, y * modifier));
+                map[x, y] = newPoint;
             }
         }
+
+        map = ApplyWalls(map, wallsWidth);
         return map;
     }
-
 
     /// <summary>
     /// Generates the top layer of our level using Random Walk
@@ -732,8 +752,11 @@ public class MapGenerator
     /// <param name="fillPercent">The amount we want the map filled</param>
     /// <param name="edgesAreWalls">Whether we want the edges to be walls</param>
     /// <returns>The modified map array</returns>
-    public static int[,] GenerateCellularAutomata(int width, int height, float seed, int fillPercent, bool edgesAreWalls)
+    public static int[,] GenerateCellularAutomata(int width, int height, float seed, int fillPercent, int wallsWidth)
     {
+        if (wallsWidth > width || wallsWidth > height)
+            wallsWidth = 0;
+
         //Seed our random number generator
         System.Random rand = new System.Random(seed.GetHashCode());
 
@@ -741,22 +764,16 @@ public class MapGenerator
         int[,] map = new int[width, height];
 
         //Start looping through setting the cells.
-        for (int x = 0; x < map.GetUpperBound(0); x++)
+        for (int x = wallsWidth; x < map.GetUpperBound(0) - wallsWidth; x++)
         {
-            for (int y = 0; y < map.GetUpperBound(1); y++)
+            for (int y = wallsWidth; y < map.GetUpperBound(1) - wallsWidth; y++)
             {
-                if (edgesAreWalls && (x == 0 || x == map.GetUpperBound(0) - 1 || y == 0 || y == map.GetUpperBound(1) - 1))
-                {
-                    //Set the cell to be active if edges are walls
-                    map[x, y] = 1;
-                }
-                else
-                {
-                    //Set the cell to be active if the result of rand.Next() is less than the fill percentage
-                    map[x, y] = (rand.Next(0, 100) < fillPercent) ? 1 : 0;
-                }
+                //Set the cell to be active if the result of rand.Next() is less than the fill percentage
+                map[x, y] = (rand.Next(0, 100) < fillPercent) ? 1 : 0;
             }
         }
+
+        map = ApplyWalls(map, wallsWidth);
         return map;
     }
 
@@ -767,23 +784,22 @@ public class MapGenerator
 	/// <param name="edgesAreWalls">Whether the edges are walls or not</param>
 	/// <param name="smoothCount">The amount we will loop through to smooth the array</param>
     /// <returns>The modified map array</returns>
-    public static int[,] SmoothVNCellularAutomata(int[,] map, bool edgesAreWalls, int smoothCount)
+    public static int[,] SmoothVNCellularAutomata(int[,] map, int wallsWidth, int smoothCount)
     {
+        if (wallsWidth > map.GetUpperBound(0) || wallsWidth > map.GetUpperBound(1))
+            wallsWidth = 0;
+
         for (int i = 0; i < smoothCount; i++)
         {
-            for (int x = 0; x < map.GetUpperBound(0); x++)
+            for (int x = wallsWidth; x < map.GetUpperBound(0) - wallsWidth; x++)
             {
-                for (int y = 0; y < map.GetUpperBound(1); y++)
+                for (int y = wallsWidth; y < map.GetUpperBound(1) - wallsWidth; y++)
                 {
                     //Get the surrounding tiles
-                    int surroundingTiles = GetVNSurroundingTiles(map, x, y, edgesAreWalls);
+                    int surroundingTiles = GetVNSurroundingTiles(map, x, y, wallsWidth);
 
-                    if (edgesAreWalls && (x == 0 || x == map.GetUpperBound(0) - 1 || y == 0 || y == map.GetUpperBound(1)))
-                    {
-                        map[x, y] = 1; //Keep our edges as walls
-                    }
                     //von Neuemann Neighbourhood requires only 3 or more surrounding tiles to be changed to a tile
-                    else if (surroundingTiles > 2)
+                    if (surroundingTiles > 2)
                     {
                         map[x, y] = 1;
                     }
@@ -796,6 +812,8 @@ public class MapGenerator
                 }
             }
         }
+
+        map = ApplyWalls(map, wallsWidth);
         return map;
     }
 
@@ -806,7 +824,7 @@ public class MapGenerator
     /// <param name="x">The x position we are checking</param>
     /// <param name="y">The y position we are checking</param>
     /// <returns>The amount of neighbours the tile map[x,y] has</returns>
-	static int GetVNSurroundingTiles(int[,] map, int x, int y, bool edgesAreWalls)
+	static int GetVNSurroundingTiles(int[,] map, int x, int y, int wallsWidth)
     {
         /* von Neumann Neighbourhood looks like this ('T' is our Tile, 'N' is our Neighbour)
 		* 
@@ -823,7 +841,7 @@ public class MapGenerator
         {
             tileCount += map[x - 1, y];
         }
-        else if (edgesAreWalls)
+        else if (wallsWidth > 0)
         {
             tileCount++;
         }
@@ -833,7 +851,7 @@ public class MapGenerator
         {
             tileCount += map[x, y - 1];
         }
-        else if (edgesAreWalls)
+        else if (wallsWidth > 0)
         {
             tileCount++;
         }
@@ -843,7 +861,7 @@ public class MapGenerator
         {
             tileCount += map[x + 1, y];
         }
-        else if (edgesAreWalls)
+        else if (wallsWidth > 0)
         {
             tileCount++;
         }
@@ -853,7 +871,7 @@ public class MapGenerator
         {
             tileCount += map[x, y + 1];
         }
-        else if (edgesAreWalls)
+        else if (wallsWidth > 0)
         {
             tileCount++;
         }
@@ -868,23 +886,20 @@ public class MapGenerator
     /// <param name="edgesAreWalls">Whether our edges should be walls</param>
     /// <param name="smoothCount">The amount we will loop through to smooth the array</param>
     /// <returns>The modified map</returns>
-    public static int[,] SmoothMooreCellularAutomata(int[,] map, bool edgesAreWalls, int smoothCount)
+    public static int[,] SmoothMooreCellularAutomata(int[,] map, int wallsWidth, int smoothCount)
     {
+        if (wallsWidth > map.GetUpperBound(0) || wallsWidth > map.GetUpperBound(1))
+            wallsWidth = 0;
+
         for (int i = 0; i < smoothCount; i++)
         {
-            for (int x = 0; x < map.GetUpperBound(0); x++)
+            for (int x = wallsWidth; x < map.GetUpperBound(0) - wallsWidth; x++)
             {
-                for (int y = 0; y < map.GetUpperBound(1); y++)
+                for (int y = wallsWidth; y < map.GetUpperBound(1) - wallsWidth; y++)
                 {
-                    int surroundingTiles = GetMooreSurroundingTiles(map, x, y, edgesAreWalls);
+                    int surroundingTiles = GetMooreSurroundingTiles(map, x, y, wallsWidth);
 
-                    //Set the edge to be a wall if we have edgesAreWalls to be true
-                    if (edgesAreWalls && (x == 0 || x == (map.GetUpperBound(0) - 1) || y == 0 || y == (map.GetUpperBound(1) - 1)))
-                    {
-                        map[x, y] = 1;
-                    }
-                    //If we have more than 4 neighbours, change to an active cell
-                    else if (surroundingTiles > 4)
+                    if (surroundingTiles > 4)
                     {
                         map[x, y] = 1;
                     }
@@ -898,6 +913,8 @@ public class MapGenerator
                 }
             }
         }
+
+        map = ApplyWalls(map, wallsWidth);
         return map;
     }
 
@@ -910,7 +927,7 @@ public class MapGenerator
     /// <param name="y">The y position we are checking</param>
     /// <param name="edgesAreWalls">Whether the edges are walls</param>
     /// <returns>An int with the amount of surrounding tiles</returns>
-    static int GetMooreSurroundingTiles(int[,] map, int x, int y, bool edgesAreWalls)
+    static int GetMooreSurroundingTiles(int[,] map, int x, int y, int wallsWidth)
     {
         /* Moore Neighbourhood looks like this ('T' is our tile, 'N' is our neighbours)
          * 

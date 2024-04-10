@@ -68,7 +68,7 @@ public class PlanetMap : MonoBehaviour
                 //First generate our array
                 map = MapGenerator.GenerateArray(width, height, true);
                 //Next generate the perlin noise onto the array
-                map = MapGenerator.PerlinNoiseCave(map, mapSetting.modifier, mapSetting.edgesAreWalls);
+                map = MapGenerator.PerlinNoiseCave(map, mapSetting.modifier, mapSetting.wallsWidth);
                 break;
             case Algorithm.RandomWalkTop:
                 //First generate our array
@@ -96,15 +96,15 @@ public class PlanetMap : MonoBehaviour
                 break;
             case Algorithm.CellularAutomataVonNeuman:
                 //First generate the cellular automata array
-                map = MapGenerator.GenerateCellularAutomata(width, height, seed, mapSetting.fillAmount, mapSetting.edgesAreWalls);
+                map = MapGenerator.GenerateCellularAutomata(width, height, seed, mapSetting.fillAmount, mapSetting.wallsWidth);
                 //Next smooth out the array using the von neumann rules
-                map = MapGenerator.SmoothVNCellularAutomata(map, mapSetting.edgesAreWalls, mapSetting.smoothAmount);
+                map = MapGenerator.SmoothVNCellularAutomata(map, mapSetting.wallsWidth, mapSetting.smoothAmount);
                 break;
             case Algorithm.CellularAutomataMoore:
                 //First generate the cellular automata array
-                map = MapGenerator.GenerateCellularAutomata(width, height, seed, mapSetting.fillAmount, mapSetting.edgesAreWalls);
+                map = MapGenerator.GenerateCellularAutomata(width, height, seed, mapSetting.fillAmount, mapSetting.wallsWidth);
                 //Next smooth out the array using the Moore rules
-                map = MapGenerator.SmoothMooreCellularAutomata(map, mapSetting.edgesAreWalls, mapSetting.smoothAmount);
+                map = MapGenerator.SmoothMooreCellularAutomata(map, mapSetting.wallsWidth, mapSetting.smoothAmount);
                 break;
             case Algorithm.DirectionalTunnel:
                 //First generate our array
