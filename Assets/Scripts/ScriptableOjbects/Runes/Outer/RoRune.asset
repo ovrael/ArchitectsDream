@@ -17,3 +17,4 @@ MonoBehaviour:
   description: 
   targetPlanet: Rognar
   location: Cave
+  mapSetting: {fileID: 11400000, guid: 11f5d8404344b8d4c8cb08c6d53ad67e, type: 2}

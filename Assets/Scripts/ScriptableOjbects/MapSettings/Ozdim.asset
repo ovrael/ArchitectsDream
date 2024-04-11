@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c584497da47ca646a749f031e4f78c7, type: 3}
+  m_Name: Ozdim
+  m_EditorClassIdentifier: 
+  algorithm: 8
+  randomSeed: 1
+  seed: 0
+  fillAmount: 51
+  smoothAmount: 7
+  clearAmount: 0
+  interval: 1
+  minPathWidth: 0
+  maxPathWidth: 0
+  maxPathChange: 0
+  roughness: 0
+  windyness: 0
+  wallsWidth: 0
+  modifier: 0
+  tile: {fileID: 11400000, guid: 67b888cc201d76f41a0ba691099d97ac, type: 2}

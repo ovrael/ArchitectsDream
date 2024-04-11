@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -32,6 +34,7 @@ public class MapSetting : ScriptableObject
     public int minPathWidth, maxPathWidth, maxPathChange, roughness, windyness;
     public int wallsWidth;
     public float modifier;
+    public TileBase tile;
 }
 
 //Custom UI for our class
@@ -43,6 +46,9 @@ public class MapSettings_Editor : Editor
         MapSetting mapLayer = (MapSetting)target;
         GUI.changed = false;
         EditorGUILayout.LabelField(mapLayer.name, EditorStyles.boldLabel);
+
+        mapLayer.tile = EditorGUILayout.ObjectField("Tile", mapLayer.tile, typeof(TileBase), true) as TileBase;
+
 
         mapLayer.algorithm = (Algorithm)EditorGUILayout.EnumPopup(new GUIContent("Generation Method", "The generation method we want to use to generate the map"), mapLayer.algorithm);
         mapLayer.randomSeed = EditorGUILayout.Toggle("Random Seed", mapLayer.randomSeed);

@@ -17,3 +17,4 @@ MonoBehaviour:
   description: 
   targetPlanet: Bovial
   location: Plateau
+  mapSetting: {fileID: 11400000, guid: 3347e43dc43c1a84c841c851ba6a2d66, type: 2}

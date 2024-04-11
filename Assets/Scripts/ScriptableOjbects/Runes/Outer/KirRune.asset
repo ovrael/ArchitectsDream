@@ -17,3 +17,4 @@ MonoBehaviour:
   description: 
   targetPlanet: Kirriam
   location: Tundra
+  mapSetting: {fileID: 11400000, guid: eaa2d7409b69b3f458d05b6a366d3464, type: 2}

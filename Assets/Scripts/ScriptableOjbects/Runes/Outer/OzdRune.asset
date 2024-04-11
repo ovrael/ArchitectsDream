@@ -17,3 +17,4 @@ MonoBehaviour:
   description: 
   targetPlanet: Ozdim
   location: Savanna
+  mapSetting: {fileID: 11400000, guid: 84010e3c36684254ca0c75092e70be6f, type: 2}

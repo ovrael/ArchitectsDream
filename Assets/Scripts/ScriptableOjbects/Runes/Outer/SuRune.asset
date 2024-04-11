@@ -17,3 +17,4 @@ MonoBehaviour:
   description: 
   targetPlanet: Sukkio
   location: Desert
+  mapSetting: {fileID: 11400000, guid: cf5ec968d83395c428d7d66716e1d6a1, type: 2}

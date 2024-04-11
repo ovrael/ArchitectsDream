@@ -1,5 +1,7 @@
 using AssemblyCSharp.Assets.Scripts.Stargate;
+
 using System;
+
 using UnityEngine;
 
 
@@ -22,4 +24,8 @@ public class OuterRuneData : RuneData
     [SerializeField]
     private string location;
     public string Location { get { return location; } }
+
+    [SerializeField]
+    private MapSetting mapSetting;
+    public MapSetting MapSetting { get { return mapSetting; } }
 }

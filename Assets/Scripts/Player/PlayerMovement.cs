@@ -54,8 +54,17 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckOutOfMapFall();
         UpdateInput();
         UpdateJumpInput();
+    }
+
+    private void CheckOutOfMapFall()
+    {
+        if (mainTransform.position.y < -20)
+        {
+            mainTransform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
+        }
     }
 
     private void FixedUpdate()
@@ -121,8 +130,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateSpriteDirection()
     {
-        float direction = Mathf.Sign(xInput);
-        mainTransform.localScale = new Vector3(-direction, 1, 1);
+        float direction = Mathf.Sign(xInput) * mainTransform.localScale.y;
+        mainTransform.localScale = new Vector3(-direction, mainTransform.localScale.y, mainTransform.localScale.z);
     }
 
     private void ApplyFriction()

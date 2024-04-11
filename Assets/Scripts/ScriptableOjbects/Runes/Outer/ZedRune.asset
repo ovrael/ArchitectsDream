@@ -17,3 +17,4 @@ MonoBehaviour:
   description: 
   targetPlanet: Zedalion
   location: Mines
+  mapSetting: {fileID: 11400000, guid: 1e83cfb30158f04448e5b9288551aee1, type: 2}

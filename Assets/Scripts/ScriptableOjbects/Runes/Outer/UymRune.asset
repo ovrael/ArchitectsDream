@@ -17,3 +17,4 @@ MonoBehaviour:
   description: 
   targetPlanet: Uymion
   location: Mountain
+  mapSetting: {fileID: 11400000, guid: b31742db9d08bf74a8032123dc34cdb7, type: 2}

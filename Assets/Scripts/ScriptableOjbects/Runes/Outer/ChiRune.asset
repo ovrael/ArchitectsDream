@@ -17,3 +17,4 @@ MonoBehaviour:
   description: 
   targetPlanet: Chinchi
   location: Hills
+  mapSetting: {fileID: 11400000, guid: c024d4a992b6caa4aa9d7b746dafe3e7, type: 2}

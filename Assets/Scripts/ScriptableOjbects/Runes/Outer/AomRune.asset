@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: -5982944519571260921, guid: e0f1d0942e8ff814b92f3c050d20c77a, type: 3}
   runeName: Aom
-  description: 
+  description: Flat?
   targetPlanet: Aomic
   location: Woods
+  mapSetting: {fileID: 11400000, guid: c122f0a26519013459a2dd692fc33020, type: 2}
