@@ -39,6 +39,14 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    public void LoadMainMenu()
+    {
+        SceneManager.sceneLoaded -= LevelLoaded;
+        canvasAnimator.Play("Level Close");
+
+        StartCoroutine(LoadSceneAsync("Menu"));
+    }
+
     public void ChangeLevel(OuterRuneData outerRune, InnerRuneData innerRune)
     {
         Scene nextScene = SceneManager.GetSceneByName($"{outerRune.TargetLocation}");
