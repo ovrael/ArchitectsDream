@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    [SerializeField]
+    private GameObject pauseMenu;
+
     private void GetManagers()
     {
         levelManager = GetComponent<LevelManager>();
@@ -53,6 +56,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (Input.GetButtonDown("Pause"))
+        {
+            TogglePause();
+        }
     }
 
     public void PauseGame()
@@ -67,11 +74,17 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-    public void TogglePause()
+    private void TogglePause()
     {
         if (gameIsPaused)
+        {
             UnpauseGame();
+            pauseMenu.SetActive(false);
+        }
         else
+        {
             PauseGame();
+            pauseMenu.SetActive(true);
+        }
     }
 }
