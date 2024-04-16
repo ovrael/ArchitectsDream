@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using AssemblyCSharp.Assets.Tools;
 
 using UnityEngine;
-using UnityEngine.Device;
 using UnityEngine.UI;
 
-public class CloudsGenerator : MonoBehaviour
+public class MenuCloudsGenerator : MonoBehaviour
 {
     [SerializeField]
     Sprite[] cloudSprites;
@@ -56,14 +55,11 @@ public class CloudsGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        CheckClouds();
     }
 
     private void FixedUpdate()
     {
-        CheckClouds();
-
-
         if (spawnTimer > nextSpawnTime && cloudObjects.Count < maxClouds)
         {
             CreateCloud();
@@ -124,12 +120,12 @@ public class CloudsGenerator : MonoBehaviour
             GameObject cloud = cloudObjects[i];
             RectTransform rectTransform = cloud.GetComponent<RectTransform>();
             int direction = cloud.GetComponent<Rigidbody2D>().velocityX > 0 ? 1 : -1;
-            float border = rectTransform.rect.width * 0.5f + 20f;
+            float outsideOffset = rectTransform.rect.width * 0.5f + 20f;
 
             // Going left
             if (direction < 0)
             {
-                if (rectTransform.anchoredPosition.x < -border)
+                if (rectTransform.anchoredPosition.x < -outsideOffset)
                 {
                     cloudObjects.Remove(cloud);
                     Destroy(cloud, 1f);
@@ -137,7 +133,7 @@ public class CloudsGenerator : MonoBehaviour
             }
             else // going right
             {
-                if (rectTransform.anchoredPosition.x > border + UnityEngine.Screen.width)
+                if (rectTransform.anchoredPosition.x > outsideOffset + UnityEngine.Screen.width)
                 {
                     cloudObjects.Remove(cloud);
                     Destroy(cloud, 1f);

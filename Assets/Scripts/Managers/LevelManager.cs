@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour
 
         canvasAnimator.Play("Level Close");
 
-        StartCoroutine(LoadYourAsyncScene(outerRune.TargetLocation));
+        StartCoroutine(LoadSceneAsync(outerRune.TargetLocation));
 
         //SceneManager.LoadScene($"{outerRune.TargetLocation}");
 
@@ -69,13 +69,8 @@ public class LevelManager : MonoBehaviour
         //environmentalObject.transform.position = new Vector3(-80, 50, 0);
     }
 
-    IEnumerator LoadYourAsyncScene(string sceneName)
+    IEnumerator LoadSceneAsync(string sceneName)
     {
-        // The Application loads the Scene in the background as the current Scene runs.
-        // This is particularly good for creating loading screens.
-        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-        // a sceneBuildIndex of 1 as shown in Build Settings.
-
         yield return new WaitForSecondsRealtime(1f);
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
