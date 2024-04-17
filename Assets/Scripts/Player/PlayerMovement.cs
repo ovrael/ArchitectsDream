@@ -6,24 +6,39 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Movement
+    [Header("Colliders")]
+    [SerializeField]
+    BoxCollider2D groundCheckCollider;
+
+    [SerializeField]
+    BoxCollider2D stepCollider;
+
+    [SerializeField]
+    BoxCollider2D stepBlockCollider;
+
+    [Header("Movement")]
     [SerializeField, Range(1f, 20f)]
     float maxSpeed = 5f;
     [SerializeField]
-    float jumpSpeed = 8f;
-    [SerializeField]
     float acceleration = 2f;
     [SerializeField, Range(0f, 4f)]
-    float changeDirectionAccelerationMultiplier = 2.75f;
-
+    float directionSpeedChange = 2.75f;
     [SerializeField, Range(0f, 1f)]
     float velocityDecay = 0.9f;
 
+    bool canWalkUp = true;
+
     // Jump
+    [Header("Jumping")]
+    [SerializeField]
+    float jumpSpeed = 8f;
+    [SerializeField, Range(0, 5f)]
+    private float fallLongMult = 0.85f;
+    [SerializeField, Range(0, 5f)]
+    private float fallShortMult = 1.55f;
+
     bool jump = false;
     bool jumpHeld = false;
-    [Range(0, 5f)][SerializeField] private float fallLongMult = 0.85f;
-    [Range(0, 5f)][SerializeField] private float fallShortMult = 1.55f;
     bool onGround = true;
     public bool OnGround { get { return onGround; } }
 
@@ -35,28 +50,28 @@ public class PlayerMovement : MonoBehaviour
     // Unity components
     Transform mainTransform;
     Rigidbody2D body;
-    BoxCollider2D groundCheckCollider;
 
 
     private void Awake()
     {
         mainTransform = transform.parent;
         body = mainTransform.GetComponent<Rigidbody2D>();
-        groundCheckCollider = mainTransform.Find("GroundCheck").GetComponent<BoxCollider2D>();
+        if (groundCheckCollider == null)
+            groundCheckCollider = mainTransform.Find("GroundCheck").GetComponent<BoxCollider2D>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateGroundedStatus();
+        UpdateWalkUpStatus();
         CheckOutOfMapFall();
         UpdateInput();
-        UpdateJumpInput();
     }
 
     private void CheckOutOfMapFall()
@@ -69,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateGroundedStatus();
         HandleJump();
         MovePlayer();
         ApplyFriction();
@@ -78,7 +92,13 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateInput()
     {
         xInput = Input.GetAxis("Horizontal");
+        if (onGround && Input.GetButtonDown("Jump"))
+            jump = true;
+        jumpHeld = !onGround && Input.GetButton("Jump");
     }
+
+
+    #region Ground Movement
 
     // Left/Right movement
     private void MovePlayer()
@@ -91,22 +111,36 @@ public class PlayerMovement : MonoBehaviour
 
         // Changed direction, increase acceleration
         if (Mathf.Sign(xInput) != Mathf.Sign(body.velocity.x))
-            velocityIncrementation *= changeDirectionAccelerationMultiplier;
+            velocityIncrementation *= directionSpeedChange;
         //body.velocity = new Vector2(0, body.velocity.y); // Clear x velocity <- old, too fast change
 
         float newSpeed = Mathf.Clamp(body.velocity.x + velocityIncrementation, -maxSpeed, maxSpeed);
         body.velocity = new Vector2(newSpeed, body.velocity.y);
 
+        if (canWalkUp && onGround)
+            WalkUp();
+
         // Rotate sprite to current direction
         UpdateSpriteDirection();
     }
 
-    private void UpdateJumpInput()
+    private void ApplyFriction()
     {
-        if (onGround && Input.GetButtonDown("Jump")) jump = true;
-        jumpHeld = (!onGround && Input.GetButton("Jump")) ? true : false;
+        if (onGround && xInput == 0 && body.velocity.y <= 0)
+            body.velocity *= velocityDecay;
     }
 
+    private void WalkUp()
+    {
+        float newX = mainTransform.position.x - Math.Sign(mainTransform.localScale.x) * 0.5f;
+        float newY = mainTransform.position.y + 1f;
+        mainTransform.position = new Vector3(newX, newY, mainTransform.position.z);
+    }
+
+    #endregion
+
+
+    #region Jump Movement
     private void HandleJump()
     {
         // Jumping...
@@ -128,21 +162,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    #endregion
+
     private void UpdateSpriteDirection()
     {
         float direction = Mathf.Sign(xInput) * mainTransform.localScale.y;
         mainTransform.localScale = new Vector3(-direction, mainTransform.localScale.y, mainTransform.localScale.z);
     }
 
-    private void ApplyFriction()
-    {
-        if (onGround && xInput == 0 && body.velocity.y <= 0)
-            body.velocity *= velocityDecay;
-    }
-
-
     private void UpdateGroundedStatus()
     {
         onGround = Physics2D.OverlapAreaAll(groundCheckCollider.bounds.min, groundCheckCollider.bounds.max, LayerMask.GetMask("Ground")).Length > 0;
+    }
+
+    private void UpdateWalkUpStatus()
+    {
+        bool stepAhead = Physics2D.OverlapAreaAll(stepCollider.bounds.min, stepCollider.bounds.max, LayerMask.GetMask("Ground")).Length > 0;
+        bool blockadeAhead = Physics2D.OverlapAreaAll(stepBlockCollider.bounds.min, stepBlockCollider.bounds.max, LayerMask.GetMask("Ground")).Length > 0;
+        canWalkUp = stepAhead && !blockadeAhead;
     }
 }
