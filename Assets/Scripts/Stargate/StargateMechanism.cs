@@ -93,6 +93,7 @@ public class StargateMechanism : MonoBehaviour
         dataText.transform.parent.gameObject.SetActive(state);
         outerRuneText.transform.parent.gameObject.SetActive(state);
         innerRuneText.transform.parent.gameObject.SetActive(state);
+        GameManager.Instance.playerIsInteracting = state;
 
         if (state)
             GameManager.Instance.PauseGame();

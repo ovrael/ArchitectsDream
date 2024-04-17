@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Stargate
   - SpawnPoint
+  - GameManager
   layers:
   - Default
   - TransparentFX

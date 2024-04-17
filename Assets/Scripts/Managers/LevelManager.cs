@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
     public void LoadMainMenu()
     {
         SceneManager.sceneLoaded -= LevelLoaded;
-        canvasAnimator.Play("Level Close");
+        canvasAnimator.PlayInFixedTime("Level Close");
 
         StartCoroutine(LoadSceneAsync("Menu"));
     }
@@ -59,8 +59,6 @@ public class LevelManager : MonoBehaviour
         canvasAnimator.Play("Level Close");
 
         StartCoroutine(LoadSceneAsync(outerRune.TargetLocation));
-
-        //SceneManager.LoadScene($"{outerRune.TargetLocation}");
 
         for (var i = environmentalObject.childCount - 1; i >= 0; i--)
         {
@@ -100,6 +98,8 @@ public class LevelManager : MonoBehaviour
         cameraInstance.GetComponent<CameraFollowsPlayer>().Init();
 
         GameManager.Instance.UnpauseGame();
+        Time.timeScale = 1f;
+
         canvasAnimator.Play("Level Open");
     }
 }

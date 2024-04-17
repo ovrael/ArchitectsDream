@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public LevelManager LevelManager { get { return levelManager; } }
 
     private bool gameIsPaused = false;
+    public bool playerIsInteracting = false;
 
     #region Singletone
     private static GameManager instance;
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause") && !playerIsInteracting)
         {
             TogglePause();
         }

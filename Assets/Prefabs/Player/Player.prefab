@@ -135,8 +135,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -683282873
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 3088857412004039275, guid: 7a20b193ed9309047b6992d66ce75513, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -285,9 +285,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2146a7d113a35a149ae3fcfd7e55b417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 9
-  jumpSpeed: 11
-  acceleration: 0.4
+  maxSpeed: 12
+  jumpSpeed: 24
+  acceleration: 0.5
   changeDirectionAccelerationMultiplier: 3
   velocityDecay: 0.7
   fallLongMult: 0.9
@@ -331,7 +331,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8464826238683938388}
@@ -357,7 +357,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 5
   m_Material: {fileID: 6200000, guid: 7ff70c7763c5d43428f983ee4620c3d8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2

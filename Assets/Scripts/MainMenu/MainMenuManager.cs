@@ -12,6 +12,16 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    private void Awake()
+    {
+        GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        if (gameManager != null)
+        {
+            DestroyImmediate(gameManager);
+        }
+        Time.timeScale = 1.0f;
+    }
+
     public void StartGame()
     {
         animator.Play("Load Game");
