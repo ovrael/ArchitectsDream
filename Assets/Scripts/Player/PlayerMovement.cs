@@ -164,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
+    #region Updates
     private void UpdateSpriteDirection()
     {
         float direction = Mathf.Sign(xInput) * mainTransform.localScale.y;
@@ -181,4 +182,5 @@ public class PlayerMovement : MonoBehaviour
         bool blockadeAhead = Physics2D.OverlapAreaAll(stepBlockCollider.bounds.min, stepBlockCollider.bounds.max, LayerMask.GetMask("Ground")).Length > 0;
         canWalkUp = stepAhead && !blockadeAhead;
     }
+    #endregion
 }
