@@ -51,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
     Transform mainTransform;
     Rigidbody2D body;
 
+    float walkUpCooldown = 0f;
+    float walkUpTimer = 0.09f;
 
     private void Awake()
     {
@@ -84,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        walkUpCooldown += Time.deltaTime;
         HandleJump();
         MovePlayer();
         ApplyFriction();
@@ -117,8 +120,11 @@ public class PlayerMovement : MonoBehaviour
         float newSpeed = Mathf.Clamp(body.velocity.x + velocityIncrementation, -maxSpeed, maxSpeed);
         body.velocity = new Vector2(newSpeed, body.velocity.y);
 
-        if (canWalkUp && onGround)
+        if (canWalkUp && onGround && (Math.Sign(xInput) == Math.Sign(-mainTransform.localScale.x)) && walkUpCooldown > walkUpTimer)
+        {
             WalkUp();
+            walkUpCooldown = 0;
+        }
 
         // Rotate sprite to current direction
         UpdateSpriteDirection();
@@ -135,6 +141,8 @@ public class PlayerMovement : MonoBehaviour
         float newX = mainTransform.position.x - Math.Sign(mainTransform.localScale.x) * 0.5f;
         float newY = mainTransform.position.y + 1f;
         mainTransform.position = new Vector3(newX, newY, mainTransform.position.z);
+
+        body.velocityX *= 0.95f;
     }
 
     #endregion
@@ -180,6 +188,7 @@ public class PlayerMovement : MonoBehaviour
     {
         bool stepAhead = Physics2D.OverlapAreaAll(stepCollider.bounds.min, stepCollider.bounds.max, LayerMask.GetMask("Ground")).Length > 0;
         bool blockadeAhead = Physics2D.OverlapAreaAll(stepBlockCollider.bounds.min, stepBlockCollider.bounds.max, LayerMask.GetMask("Ground")).Length > 0;
+
         canWalkUp = stepAhead && !blockadeAhead;
     }
     #endregion
