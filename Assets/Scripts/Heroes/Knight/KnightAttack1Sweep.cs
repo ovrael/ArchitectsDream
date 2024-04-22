@@ -6,15 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Knight Attack1 Sweep", menuName = "ScriptableObjects/Skills/Active/Knight/Attack1/Sweep", order = 1)]
 public class KnightAttack1Sweep : ActiveSkill
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Use(Transform player)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        Animator playerAnimator = player.GetComponentInChildren<Animator>();
+        playerAnimator.Play("Knight_Attack1_Sweep");
     }
 }

@@ -4,22 +4,23 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Knight Movement Shield Charge", menuName = "ScriptableObjects/Skills/Active/Knight/Movement/Shield Charge", order = 3)]
+[Serializable, CreateAssetMenu(fileName = "Knight Movement Shield Charge", menuName = "ScriptableObjects/Skills/Active/Knight/Movement/Shield Charge", order = 3)]
 public class KnightMovementShieldCharge : ActiveSkill
 {
-    public override void UseOnPlayer(Transform player)
-    {
-        if (!IsCooldownReady())
-            return;
+    [SerializeField]
+    float chargeSpeed = 40f;
 
+    [SerializeField]
+    float chargeTime = 4f;
+
+    public override void Use(Transform player)
+    {
         Debug.Log($"Used {SkillName} OnPlayer!");
 
         Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
-        playerRb.velocityX = 50f * Math.Sign(-player.localScale.x);
-
-        cooldownTimer = 0;
-
-
+        PlayerMovement playerMovement = player.GetComponentInChildren<PlayerMovement>();
+        playerMovement.ChangeMaxSpeedForTime(chargeSpeed, chargeTime);
+        playerRb.velocityX = chargeSpeed * Math.Sign(-player.localScale.x);
     }
 
     // Start is called before the first frame update

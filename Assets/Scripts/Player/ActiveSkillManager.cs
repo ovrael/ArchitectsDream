@@ -15,7 +15,7 @@ public class ActiveSkillManager : MonoBehaviour
     ActiveSkill attack1;
     [SerializeReference]
     ActiveSkill attack2;
-    [SerializeReference]
+    [SerializeField]
     ActiveSkill movement;
     [SerializeReference]
     ActiveSkill utility;
@@ -40,24 +40,29 @@ public class ActiveSkillManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Attack1"))
+        if (Input.GetButtonDown("Attack1") && attack1.IsCooldownReady())
         {
-            attack1.Use();
+            attack1.Use(playerTransform);
+            attack1.ClearCooldown();
         }
 
-        if (Input.GetButtonDown("Attack2"))
+        if (Input.GetButtonDown("Attack2") && attack2.IsCooldownReady())
         {
-            attack2.Use();
+            attack2.Use(playerTransform);
+            attack2.ClearCooldown();
         }
 
-        if (Input.GetButtonDown("Movement"))
+        if (Input.GetButtonDown("Movement") && movement.IsCooldownReady())
         {
-            movement.UseOnPlayer(playerTransform);
+            movement.Use(playerTransform);
+            movement.ClearCooldown();
         }
 
-        if (Input.GetButtonDown("Utility"))
+        if (Input.GetButtonDown("Utility") && utility.IsCooldownReady())
         {
-            utility.Use();
+            utility.Use(playerTransform);
+            utility.ClearCooldown();
+
         }
 
         foreach (var skill in skills)

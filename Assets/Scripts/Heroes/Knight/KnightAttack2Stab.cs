@@ -6,15 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Knight Attack2 Stab", menuName = "ScriptableObjects/Skills/Active/Knight/Attack2/Stab", order = 2)]
 public class KnightAttack2Stab : ActiveSkill
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Use(Transform player)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        Animator playerAnimator = player.GetComponentInChildren<Animator>();
+        playerAnimator.Play("Knight_Attack2_Stab");
     }
 }

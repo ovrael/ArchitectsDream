@@ -76,14 +76,6 @@ public class PlayerMovement : MonoBehaviour
         UpdateInput();
     }
 
-    private void CheckOutOfMapFall()
-    {
-        if (mainTransform.position.y < -20)
-        {
-            mainTransform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
-        }
-    }
-
     private void FixedUpdate()
     {
         walkUpCooldown += Time.deltaTime;
@@ -91,15 +83,6 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
         ApplyFriction();
     }
-
-    private void UpdateInput()
-    {
-        xInput = Input.GetAxis("Horizontal");
-        if (onGround && Input.GetButtonDown("Jump"))
-            jump = true;
-        jumpHeld = !onGround && Input.GetButton("Jump");
-    }
-
 
     #region Ground Movement
 
@@ -142,11 +125,10 @@ public class PlayerMovement : MonoBehaviour
         float newY = mainTransform.position.y + 1f;
         mainTransform.position = new Vector3(newX, newY, mainTransform.position.z);
 
-        body.velocityX *= 0.95f;
+        body.velocityX *= 0.97f;
     }
 
     #endregion
-
 
     #region Jump Movement
     private void HandleJump()
@@ -173,6 +155,14 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Updates
+    private void UpdateInput()
+    {
+        xInput = Input.GetAxis("Horizontal");
+        if (onGround && Input.GetButtonDown("Jump"))
+            jump = true;
+        jumpHeld = !onGround && Input.GetButton("Jump");
+    }
+
     private void UpdateSpriteDirection()
     {
         float direction = Mathf.Sign(xInput) * mainTransform.localScale.y;
@@ -191,5 +181,35 @@ public class PlayerMovement : MonoBehaviour
 
         canWalkUp = stepAhead && !blockadeAhead;
     }
+
+    private void CheckOutOfMapFall()
+    {
+        if (mainTransform.position.y < -20)
+        {
+            mainTransform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
+        }
+    }
+    #endregion
+
+    #region Coroutine
+
+    public void ChangeMaxSpeedForTime(float newMaxSpeed, float time)
+    {
+        time = Mathf.Clamp(time, 1, 60);
+        newMaxSpeed = Mathf.Clamp(newMaxSpeed, 0, 100);
+
+        IEnumerator ChangeSpeed()
+        {
+            float oldMaxSpeed = maxSpeed;
+            maxSpeed = newMaxSpeed;
+
+            yield return new WaitForSeconds(time);
+
+            maxSpeed = oldMaxSpeed;
+        }
+
+        StartCoroutine(ChangeSpeed());
+    }
+
     #endregion
 }

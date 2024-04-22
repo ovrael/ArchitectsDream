@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,6 +12,7 @@ public enum ActiveSkillType
     Utility
 }
 
+[Serializable]
 public abstract class ActiveSkill : ScriptableObject
 {
     [SerializeField]
@@ -44,29 +46,19 @@ public abstract class ActiveSkill : ScriptableObject
         return 1 - (cooldownTimer / cooldown);
     }
 
-    protected bool IsCooldownReady()
+    public bool IsCooldownReady()
     {
         return cooldownTimer >= Cooldown;
     }
 
-    public virtual void Use()
+    public void ClearCooldown()
     {
-        if (!IsCooldownReady())
-            return;
-
-        Debug.Log($"Used {SkillName}!");
-
         cooldownTimer = 0;
     }
 
-    public virtual void UseOnPlayer(Transform player)
+    public virtual void Use(Transform player)
     {
-        if (!IsCooldownReady())
-            return;
-
         Debug.Log($"Used {SkillName}!");
-
-        cooldownTimer = 0;
     }
 
     public virtual void UpdateCooldown(float timeAmount)
