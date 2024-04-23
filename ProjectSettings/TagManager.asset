@@ -18,7 +18,7 @@ TagManager:
   - UI
   - Player
   - Ground
-  - 
+  - Entity
   - 
   - 
   - 
@@ -48,6 +48,9 @@ TagManager:
     locked: 0
   - name: Tilemap
     uniqueID: 1170502919
+    locked: 0
+  - name: Entity
+    uniqueID: 2567453525
     locked: 0
   - name: Player
     uniqueID: 3611684423
