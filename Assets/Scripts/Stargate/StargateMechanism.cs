@@ -103,7 +103,13 @@ public class StargateMechanism : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision == null || !collision.transform.parent.CompareTag("Player"))
+        if (collision == null)
+            return;
+
+        if (collision.transform.parent == null)
+            return;
+
+        if (!collision.transform.parent.CompareTag("Player"))
             return;
 
         userInRange = true;
@@ -111,7 +117,13 @@ public class StargateMechanism : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision == null || !collision.transform.parent.CompareTag("Player"))
+        if (collision == null)
+            return;
+
+        if (collision.transform.parent == null)
+            return;
+
+        if (!collision.transform.parent.CompareTag("Player"))
             return;
 
         userInRange = false;
