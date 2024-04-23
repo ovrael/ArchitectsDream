@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using AssemblyCSharp.Assets.Tools;
+
 using UnityEngine;
 
 public class AnimationManager : MonoBehaviour
 {
-    Animator animator;
+    [SerializeField]
+    Animator playerAnimator;
+    [SerializeField]
+    Animator weaponAnimator;
+
     Rigidbody2D rb;
     PlayerMovement playerMovement;
 
@@ -14,7 +20,6 @@ public class AnimationManager : MonoBehaviour
 
     private void Awake()
     {
-        animator = transform.parent.GetComponentInChildren<Animator>();
         rb = transform.parent.GetComponent<Rigidbody2D>();
         playerMovement = transform.parent.GetComponentInChildren<PlayerMovement>();
     }
@@ -33,13 +38,13 @@ public class AnimationManager : MonoBehaviour
             // Fall
             if (rb.velocity.y < -deadzone)
             {
-                PlayAnimation("Fall");
+                currentAnimation = playerAnimator.PlayAnimation("Fall", currentAnimation);
             }
 
             // Jump
             if (rb.velocity.y > deadzone)
             {
-                PlayAnimation("Jump");
+                currentAnimation = playerAnimator.PlayAnimation("Jump", currentAnimation);
             }
 
             return;
@@ -50,24 +55,14 @@ public class AnimationManager : MonoBehaviour
         // Not moving
         if (Mathf.Abs(playerMovement.XInput) < deadzone)
         {
-            PlayAnimation("Idle");
+            currentAnimation = playerAnimator.PlayAnimation("Idle", currentAnimation);
             return;
         }
 
         if (Mathf.Abs(playerMovement.XInput) > deadzone)
         {
-            PlayAnimation("Walk");
+            currentAnimation = playerAnimator.PlayAnimation("Walk", currentAnimation);
             return;
         }
-    }
-
-    private void PlayAnimation(string animation)
-    {
-
-        if (currentAnimation == animation)
-            return;
-
-        animator.Play(animation);
-        currentAnimation = animation;
     }
 }

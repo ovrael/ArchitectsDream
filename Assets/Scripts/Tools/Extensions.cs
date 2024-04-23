@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using UnityEngine;
+
 namespace AssemblyCSharp.Assets.Tools
 {
     public static class Extensions
     {
-        private static Random rng = new Random();
+        private static System.Random rng = new System.Random();
 
         public static T RandomOne<T>(this T[] array)
         {
@@ -19,6 +21,15 @@ namespace AssemblyCSharp.Assets.Tools
         {
             int index = rng.Next(array.Length);
             return (array[index], index);
+        }
+
+        public static string PlayAnimation(this Animator animator, string nextAnimationName, string currentAnimationName)
+        {
+            if (currentAnimationName == nextAnimationName)
+                return currentAnimationName;
+
+            animator.Play(nextAnimationName);
+            return nextAnimationName;
         }
     }
 }

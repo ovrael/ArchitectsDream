@@ -1303,6 +1303,8 @@ GameObject:
   m_Component:
   - component: {fileID: 619354454}
   - component: {fileID: 619354455}
+  - component: {fileID: 619354456}
+  - component: {fileID: 619354457}
   m_Layer: 6
   m_Name: Sword
   m_TagString: Untagged
@@ -1318,12 +1320,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619354453}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.3420201, w: 0.9396927}
-  m_LocalPosition: {x: -0.5, y: 0.35, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.3420201, w: 0.9396927}
+  m_LocalPosition: {x: -0.49999982, y: 0.3500001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1492907819}
+  m_Father: {fileID: 1382455104}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 40}
 --- !u!212 &619354455
 SpriteRenderer:
@@ -1379,6 +1381,74 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &619354456
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619354453}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac2fbf9265c7db24aa97232df67f3cb4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &619354457
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619354453}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.0970269}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.1276527, y: 0.7741399}
+  m_EdgeRadius: 0
 --- !u!1 &637403995
 GameObject:
   m_ObjectHideFlags: 0
@@ -3934,9 +4004,9 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482497300}
   m_CullTransparentMesh: 1
---- !u!4 &1492907819 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8464826238683938388, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
+--- !u!95 &1492907820 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3551522168249639282, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
   m_PrefabInstance: {fileID: 5639591928697963826}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1590629197
@@ -48966,6 +49036,14 @@ PrefabInstance:
       propertyPath: maxSpeed
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 7176545063424998029, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 1492907820}
+    - target: {fileID: 7176545063424998029, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
+      propertyPath: weaponAnimator
+      value: 
+      objectReference: {fileID: 619354456}
     - target: {fileID: 7723603956752651252, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
       propertyPath: m_Name
       value: Player
@@ -48977,8 +49055,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8464826238683938388, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
-      insertIndex: -1
+    - targetCorrespondingSourceObject: {fileID: 4958357112347412603, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
+      insertIndex: 0
       addedObject: {fileID: 619354454}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7202049346745705507, guid: 9f880d700b4f36a4ca2998363b1c2576, type: 3}
