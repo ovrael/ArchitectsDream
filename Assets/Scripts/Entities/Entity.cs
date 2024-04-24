@@ -6,41 +6,62 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace AssemblyCSharp.Assets.Scripts.Entities
+public abstract class Entity : MonoBehaviour
 {
-    [RequireComponent(typeof(Collider2D))]
-    public abstract class Entity : MonoBehaviour
+    [SerializeField]
+    protected float maxHealth;
+    protected float currentHealth;
+
+    [SerializeField]
+    protected float healthRegeneraion;
+
+    [SerializeField]
+    protected float armor;
+
+    protected virtual void Awake()
     {
-        [SerializeField]
-        private float health;
+        Debug.Log($"Set {gameObject.name} curr:{currentHealth} to max:{maxHealth}");
+        currentHealth = maxHealth;
+        Debug.Log($"After set {gameObject.name} curr:{currentHealth} to max:{maxHealth}");
+    }
 
-        [SerializeField]
-        private float armor;
+    protected virtual void Update()
+    {
+        RegenerateHealth();
+    }
 
-        protected void CheckDeath()
+    protected void RegenerateHealth()
+    {
+        if (currentHealth > maxHealth) return;
+
+        currentHealth += healthRegeneraion * Time.deltaTime;
+        currentHealth = currentHealth > maxHealth ? maxHealth : currentHealth;
+    }
+
+
+    protected void CheckDeath()
+    {
+        if (currentHealth <= 0)
         {
-            if (health <= 0)
-            {
-                Die();
-            }
+            Die();
         }
+    }
 
-        protected virtual void Die()
-        {
-            Destroy(gameObject);
-        }
+    protected virtual void Die()
+    {
+        Destroy(gameObject);
+    }
 
-        /// <summary>
-        /// Add damage type?
-        /// </summary>
-        /// <param name="damage"></param>
-        public void TakeDamage(float damage)
-        {
-            if (armor >= damage)
-                return;
+    /// <summary>
+    /// Add damage type?
+    /// </summary>
+    /// <param name="damage"></param>
+    public void TakeDamage(float damage)
+    {
+        if (armor >= damage)
+            return;
 
-            health -= (damage - armor);
-            CheckDeath();
-        }
+        currentHealth -= (damage - armor);
+        CheckDeath();
     }
 }

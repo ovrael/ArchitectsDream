@@ -1,5 +1,3 @@
-using AssemblyCSharp.Assets.Scripts.Entities;
-
 using UnityEngine;
 
 public class Knight_Sword : MonoBehaviour

@@ -6,23 +6,20 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace AssemblyCSharp.Assets.Scripts.Entities
+public class Enemy : Entity
 {
-    public class Enemy : Entity
+    [SerializeField]
+    private int experience = 30;
+
+    protected override void Die()
     {
-        [SerializeField]
-        private int experience = 30;
+        GiveExperienceToPlayer();
+        base.Die();
+    }
 
-        protected override void Die()
-        {
-            GiveExperienceToPlayer();
-            base.Die();
-        }
-
-        private void GiveExperienceToPlayer()
-        {
-            GameObject player = GameObject.FindWithTag("Player");
-            player.GetComponentInChildren<PlayerExperience>().GainExperience(experience);
-        }
+    private void GiveExperienceToPlayer()
+    {
+        GameObject player = GameObject.FindWithTag("Player");
+        player.GetComponentInChildren<PlayerExperience>().GainExperience(experience);
     }
 }

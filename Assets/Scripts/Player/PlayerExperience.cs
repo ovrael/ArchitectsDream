@@ -17,7 +17,15 @@ public class PlayerExperience : MonoBehaviour
 
     private void Awake()
     {
+        GetExperienceBar();
         UpdateHud();
+    }
+
+    private void GetExperienceBar()
+    {
+        if (experienceBar != null) return;
+
+        experienceBar = GameManager.Instance.HudManager.ExperienceBar;
     }
 
     internal void GainExperience(int experienceAmount)

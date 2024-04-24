@@ -2,10 +2,14 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(LevelManager))]
+[RequireComponent(typeof(HudManager))]
 public class GameManager : MonoBehaviour
 {
     private LevelManager levelManager;
     public LevelManager LevelManager { get { return levelManager; } }
+
+    private HudManager hudManager;
+    public HudManager HudManager { get { return hudManager; } }
 
     private bool gameIsPaused = false;
     public bool playerIsInteracting = false;
@@ -47,6 +51,7 @@ public class GameManager : MonoBehaviour
     private void GetManagers()
     {
         levelManager = GetComponent<LevelManager>();
+        hudManager = GetComponent<HudManager>();
     }
 
     // Start is called before the first frame update

@@ -24,17 +24,25 @@ public class ActiveSkillManager : MonoBehaviour
 
     [Header("Hud")]
     [SerializeField]
-    GameObject skillsHUD;
+    GameObject skillsHud;
 
     // Start is called before the first frame update
     void Awake()
     {
+        GetSkillsHud();
         skills = new ActiveSkill[] { attack1, attack2, movement, utility };
 
         foreach (var skill in skills)
         {
             LoadSkill(skill);
         }
+    }
+
+    private void GetSkillsHud()
+    {
+        if (skillsHud != null) return;
+
+        skillsHud = GameManager.Instance.HudManager.SkillsHud;
     }
 
     // Update is called once per frame
@@ -74,13 +82,13 @@ public class ActiveSkillManager : MonoBehaviour
 
     private void UpdateSkillHud(ActiveSkill skill)
     {
-        Transform skillCooldown = skillsHUD.transform.Find($"{skill.ActiveSkillType}").Find("Cooldown");
+        Transform skillCooldown = skillsHud.transform.Find($"{skill.ActiveSkillType}").Find("Cooldown");
         skillCooldown.GetComponent<Image>().fillAmount = skill.GetCooldownRatio();
     }
 
     private void LoadSkill(ActiveSkill skill)
     {
-        Transform skillChild = skillsHUD.transform.Find($"{skill.ActiveSkillType}");
+        Transform skillChild = skillsHud.transform.Find($"{skill.ActiveSkillType}");
 
         // Update skill icon sprite
         Transform skillIcon = skillChild.Find("Icon");
