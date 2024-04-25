@@ -24,8 +24,12 @@ public class PlayerCombat : Entity
     protected override void Awake()
     {
         base.Awake();
-        GetHealthHud();
         UpdateHud();
+    }
+
+    private void Start()
+    {
+        GetHealthHud();
     }
 
     private void GetHealthHud()

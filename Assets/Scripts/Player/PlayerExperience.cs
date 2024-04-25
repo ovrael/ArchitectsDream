@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using TMPro;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +12,9 @@ public class PlayerExperience : MonoBehaviour
     [SerializeField]
     private Image experienceBar;
 
+    [SerializeField]
+    private TMP_Text levelText;
+
     private int experience = 0;
     private int level = 1;
     private int experienceNeeded = 200;
@@ -17,15 +22,21 @@ public class PlayerExperience : MonoBehaviour
 
     private void Awake()
     {
-        GetExperienceBar();
         UpdateHud();
     }
 
-    private void GetExperienceBar()
+    private void Start()
     {
-        if (experienceBar != null) return;
+        GetExperienceHud();
+    }
 
-        experienceBar = GameManager.Instance.HudManager.ExperienceBar;
+    private void GetExperienceHud()
+    {
+        if (experienceBar == null)
+            experienceBar = GameManager.Instance.HudManager.ExperienceHud.GetComponentInChildren<Image>();
+
+        if (levelText == null)
+            levelText = GameManager.Instance.HudManager.ExperienceHud.GetComponentInChildren<TMP_Text>();
     }
 
     internal void GainExperience(int experienceAmount)
@@ -47,8 +58,7 @@ public class PlayerExperience : MonoBehaviour
         experienceNeeded += levelExperienceChange;
 
         UpdateHud();
-
-        Debug.Log($"Player leveled up to: {level}!");
+        levelText.text = $"{level}";
     }
 
     private void UpdateHud()

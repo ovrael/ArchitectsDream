@@ -11,8 +11,8 @@ public class HudManager : MonoBehaviour
     public GameObject HealthHud { get => healthHud; }
 
     [SerializeField]
-    Image experienceBar;
-    public Image ExperienceBar { get => experienceBar; }
+    GameObject exprienceHud;
+    public GameObject ExperienceHud { get => exprienceHud; }
 
     [SerializeField]
     GameObject skillsHud;

@@ -29,13 +29,17 @@ public class ActiveSkillManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        GetSkillsHud();
         skills = new ActiveSkill[] { attack1, attack2, movement, utility };
 
         foreach (var skill in skills)
         {
             LoadSkill(skill);
         }
+    }
+
+    private void Start()
+    {
+        GetSkillsHud();
     }
 
     private void GetSkillsHud()
